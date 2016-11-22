@@ -40,21 +40,7 @@ xhr.onreadystatechange = function() {
             },
             methods: {
                 dateMe: function(ms){
-                        x = ms;
-                        var seconds = Math.floor(x % 60);
-                        x /= 60;
-                        var minutes = Math.floor(x % 60);
-                        x /= 60;
-                        var hours = Math.floor(x % 24);
-                        x /= 24;
-                        var days = Math.floor(x);
-                        if (days == '' && hours == '') {
-                            return minutes + ' Minutes, '  + seconds + ' Seconds';
-                        } else if (days == '') {
-                            return  hours + ' Hours, ' + minutes + ' Minutes';
-                        } else {
-                            return  days + ' Days, ' + hours + ' Hours, ' + minutes + ' Minutes';
-                        }
+                    return millisToTime(ms);
                 }
             }
             /*methods: {
@@ -71,6 +57,32 @@ xhr.onreadystatechange = function() {
                 }
             }*/
         });
+        new Vue({
+            el: '#liveMatches',
+            data: {
+                items: jsonMatches.liveMatches,
+                show: true,
+                openS: false
+            },
+            methods: {
+                dateMe: function(ms){
+                    return millisToTime(ms);
+                }
+            }
+        });
+        new Vue({
+            el: '#completedMatches',
+            data: {
+                items: jsonMatches.completedMatches,
+                show: true,
+                openS: false
+            },
+            methods: {
+                dateMe: function(ms){
+                    return millisToTime(ms);
+                }
+            }
+        });
         /*var acc = document.getElementsByClassName("accordion");
         var i;
         for (i = 0; i < acc.length; i++) {
@@ -79,6 +91,7 @@ xhr.onreadystatechange = function() {
             this.nextElementSibling.classList.toggle("show");
         }
         }*/
+
 	    var component = document.getElementsByClassName('accordion-item'),
 	        heading = document.getElementsByClassName('accordion-content');
 	    // Slide open the accordion content
@@ -97,6 +110,25 @@ xhr.send();
 
 var apiURL = "http://staging.pebble.mrwhal3.com/pebble/v1/FED/all";
 
+
+}
+
+function millisToTime(ms) {
+    x = ms
+    var seconds = Math.floor(x % 60);
+    x /= 60;
+    var minutes = Math.floor(x % 60);
+    x /= 60;
+    var hours = Math.floor(x % 24);
+    x /= 24;
+    var days = Math.floor(x);
+    if (days == '' && hours == '') {
+        return minutes + ' Minutes, '  + seconds + ' Seconds';
+    } else if (days == '') {
+        return  hours + ' Hours, ' + minutes + ' Minutes';
+    } else {
+        return  days + ' Days, ' + hours + ' Hours, ' + minutes + ' Minutes';
+    }
 
 }
 
