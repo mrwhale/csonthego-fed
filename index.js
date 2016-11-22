@@ -1,11 +1,5 @@
 window.onload = function (){
 
-new Vue({
-    el: '#app',
-    data: {
-        message: 'Hey buddy'
-    },
-});
 
 /*function showDiv(element){
     var el = "#" + element;
