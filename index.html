@@ -1,0 +1,152 @@
+<html> 
+<head> 
+<script type = "text/javascript" src = "vue.js"></script>
+<script type = "text/javascript" src = "index.js"></script>
+<!-- style>
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+
+
+div.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+}
+
+div.panel.show {
+    display: block;
+}
+</style -->
+<style>
+.component-accordion {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+
+.component-accordion .accordion-heading {
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+              -ms-grid-row-align: center;
+          align-items: center;
+  padding: 20px 50px 20px 20px;
+  font-weight: bold;
+}
+
+.component-accordion .accordion-heading::before, .component-accordion .accordion-heading::after {
+  position: absolute;
+  right: 30px;
+  top: calc(50% - 10px);
+  content: "";
+  display: block;
+  background-color: #ccc;
+  width: 2px;
+  height: 20px;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+.component-accordion .accordion-heading::after {
+  -webkit-transform: rotateZ(90deg);
+          transform: rotateZ(90deg);
+}
+
+.component-accordion .accordion-heading:hover {
+  cursor: pointer;
+}
+
+.component-accordion.reverse .accordion-heading {
+  padding: 20px 20px 20px 50px;
+}
+
+.component-accordion.reverse .accordion-heading::before, .component-accordion.reverse .accordion-heading::after {
+  right: inherit;
+  left: 30px;
+}
+
+.component-accordion .accordion-item {
+  border-bottom: 1px solid #ccc;
+}
+
+.component-accordion .accordion-item:last-of-type {
+  border-bottom: none;
+}
+
+.component-accordion .accordion-item.open .accordion-heading::before {
+  -webkit-transform: rotateZ(90deg);
+          transform: rotateZ(90deg);
+}
+
+.component-accordion .accordion-item.open .accordion-heading::after {
+  -webkit-transform: rotateZ(270deg);
+          transform: rotateZ(270deg);
+}
+
+.component-accordion .accordion-content {
+  display: none;
+  padding: 0 20px;
+}
+.component-accordion .accordion-content.open{
+  display: block;
+  padding: 0 20px;
+}
+
+
+.component-content-listing h2,
+.component-content-listing h3,
+.component-content-listing h4 {
+  color: #ccc;
+}
+</style>
+</head> 
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+</div>
+
+<div id="upcomingMatches" class="component-accordion">
+        <template v-for="item in items">
+            <div class="accordion-item"> 
+            <div class="accordion-heading"> <h4> {{ item.homeNick }} vs {{ item.awayNick}} </h4> </div>
+            <div class="accordion-content"> 
+                <p> {{item.homeTeam}} versus {{item.awayTeam}} <br/>
+                @ {{ dateMe(item.timestamp) }} <br/>
+                 {{ item.tournament }} </p>
+            </div>
+            </div>
+        </template>
+
+</div>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+  }
+}
+</script>
+</body>
+
+</html>
