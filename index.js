@@ -30,11 +30,34 @@ xhr.onreadystatechange = function() {
             data: {
                 items: jsonMatches.upcomingMatches,
                 show: true,
-                openS: false
+                openS: false,
+                searchKey: '',
+                currentPage: 1,
+                itemsPerPage: 10,
+                resultCount: 10
             },
             methods: {
                 dateMe: function(ms){
                     return millisToTime(ms);
+                },
+                setPage: function(pageNumber) {
+                    this.currentPage = pageNumber  
+                }
+            },
+            computed: {
+                totalPages: function() {
+                    return Math.ceil(this.resultCount / this.itemsPerPage)
+                }
+            },
+            filters: {
+                paginate: function(list) {
+                    this.resultCount = list.length
+                    if (this.currentPage >= this.totalPages) {
+                        this.currentPage = this.totalPages - 1
+                    }
+                    var index = this.currentPage * this.itemsPerPage
+                    console.log("doing paginate clicks");
+                    return list.slice(index, index + this.itemsPerPage)
                 }
             }
             /*methods: {
@@ -85,17 +108,7 @@ xhr.onreadystatechange = function() {
             this.nextElementSibling.classList.toggle("show");
         }
         }*/
-
-	    var component = document.getElementsByClassName('accordion-item'),
-	        heading = document.getElementsByClassName('accordion-content');
-	    // Slide open the accordion content
-        for(i=0; i < component.length; i++){
-
-            component[i].onclick = function () {
-                this.children[1].classList.toggle("open");
-                this.classList.toggle('open');
-            };
-        }
+        makeClick();
     }
 }
 xhr.open("GET", "http://staging.pebble.mrwhal3.com/pebble/v1/FED/all");
@@ -104,9 +117,25 @@ xhr.send();
 
 var apiURL = "http://staging.pebble.mrwhal3.com/pebble/v1/FED/all";
 
-
 }
 
+function makeClick(){
+    	var component = document.getElementsByClassName('accordion-item')
+	    var heading = document.getElementsByClassName('accordion-content');
+	    // Slide open the accordion content
+        for(i=0; i < component.length; i++){
+            component[i].addEventListener('click', function(e){
+                 console.log("shiiiet");
+                 console.log(e);
+                 this.classlist.toggle("open");
+                 //component[i].children.classlist.toggle("open");
+                }, false); 
+           /* component[i].onclick = function () {
+                this.children[1].classList.toggle("open");
+                this.classList.toggle('open');
+            };*/
+        }
+}
 function millisToTime(ms) {
     x = ms
     var seconds = Math.floor(x % 60);

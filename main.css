@@ -5,6 +5,7 @@
   flex: 1;
   width: calc(30% - 1em);
   float: left;
+  margin: 1px 1px 1px 1px;
 }
 
 .component-accordion .accordion-heading {
